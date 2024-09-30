@@ -18,14 +18,14 @@ const WelcomeScreen = () => {
           style={[styles.button, styles.signInButton]}
           onPress={() => navigation.navigate('Login')} // Corregido, debe coincidir con el nombre en el Stack
         >
-          <Text style={styles.buttonText}>Sign In</Text>
+          <Text style={styles.buttonText}>Iniciar Sesion</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.registerButton]}
           onPress={() => navigation.navigate('Register')} // Corregido, debe coincidir con el nombre en el Stack
         >
-          <Text style={styles.buttonTextRegister}>Register</Text>
+          <Text style={styles.buttonTextRegister}>Registro</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

@@ -9,52 +9,101 @@ import MapScreen from './src/screens/MapScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
-import { auth } from './firebaseConfig'; // Firebase Auth
-import { onAuthStateChanged, User } from 'firebase/auth'; // Importando tipos correctos
+import { Easing } from 'react-native-reanimated';
+import { TransitionSpecs } from '@react-navigation/stack';
+
+export type UserData = {
+  id: string;
+  Dni: string;
+  Nombre: string;
+  FotoDni: string;
+  Password: string;
+};
 
 export type RootStackParamList = {
-  Loading: undefined;
+  Loading: { user: UserData };
   Welcome: undefined;
   Login: undefined;
   Register: undefined;
-  OnboardingScreen1: undefined;
-  OnboardingScreen2: undefined;
-  HomeScreen: undefined;
+  OnboardingScreen1: { user: UserData };
+  OnboardingScreen2: { user: UserData };
+  HomeScreen: { user: UserData };
   MapScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const [user, setUser] = useState<User | null>(null); // Tipar correctamente el estado
-  const [initializing, setInitializing] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      if (initializing) setInitializing(false);
-    });
-    return () => unsubscribe();
-  }, [initializing]);
-
-  if (initializing) return null;
-
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={user ? "Loading" : "Welcome"}
+        initialRouteName="Welcome"
         screenOptions={{
           headerShown: false,
-          gestureEnabled: true,
-          cardOverlayEnabled: true,
+          gestureEnabled: true,  // Habilitar gestos
         }}
       >
+        {/* Pantalla de bienvenida */}
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+
+        {/* Login con la transición personalizada de absorción */}
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+            transitionSpec: {
+              open: {
+                animation: 'timing',
+                config: {
+                  duration: 700,
+                  easing: Easing.out(Easing.circle),
+                },
+              },
+              close: {
+                animation: 'timing',
+                config: {
+                  duration: 500,
+                  easing: Easing.out(Easing.circle),
+                },
+              },
+            },
+          }} 
+        />
+
+        {/* Pantalla de registro */}
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Loading" component={LoadingScreen} />
-        <Stack.Screen name="OnboardingScreen1" component={OnboardingScreen1} />
-        <Stack.Screen name="OnboardingScreen2" component={OnboardingScreen2} />
+
+        {/* Loading con desabsorción */}
+        <Stack.Screen 
+          name="Loading" 
+          component={LoadingScreen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid,
+            transitionSpec: {
+              open: TransitionSpecs.RevealFromBottomAndroidSpec,
+              close: TransitionSpecs.FadeOutToBottomAndroidSpec,
+            },
+          }}
+        />
+
+        {/* Onboarding con movimiento deslizante */}
+        <Stack.Screen 
+          name="OnboardingScreen1" 
+          component={OnboardingScreen1} 
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+        <Stack.Screen 
+          name="OnboardingScreen2" 
+          component={OnboardingScreen2} 
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
+
+        {/* Home y Mapa con transición por defecto */}
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="MapScreen" component={MapScreen} />
       </Stack.Navigator>

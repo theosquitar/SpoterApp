@@ -21,15 +21,17 @@ const TrackStopModal: React.FC<TrackStopModalProps> = ({ visible, estacionamient
   return (
     <View style={styles.modalContainer}>
       <View style={styles.infoContainer}>
-        <Text style={styles.zoneTitle}>Zona</Text>
-        <Text style={styles.zone}>{estacionamiento?.nombre}</Text>
-        <View style={styles.mapIconContainer}>
+        <View style={styles.textAndIconContainer}>
+          <View>
+            <Text style={styles.zoneTitle}>Estacionamiento</Text>
+            <Text style={styles.zone}>{estacionamiento?.nombre || 'A-013'}</Text>
+          </View>
           <Image source={require('../../assets/location.png')} style={styles.mapIcon} />
         </View>
       </View>
 
       <TouchableOpacity style={styles.trackButton} onPress={onCancel}>
-        <Text style={styles.trackButtonText}>Canelar Viaje</Text>
+        <Text style={styles.trackButtonText}>Cancelar Viaje</Text>
       </TouchableOpacity>
     </View>
   );
@@ -44,43 +46,52 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     backgroundColor: '#FFFFFF',
-    padding: 20,
-    borderRadius: 10,
+    padding: 15,
+    borderRadius: 15,
     width: '90%',
     alignItems: 'center',
     marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5, // Sombra para Android
+  },
+  textAndIconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
   zoneTitle: {
     fontSize: 14,
-    color: '#999',
+    color: '#999999',
+    fontWeight: '300',
   },
   zone: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
-    marginVertical: 10,
-  },
-  mapIconContainer: {
-    width: 80,
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 5,
   },
   mapIcon: {
     width: 50,
     height: 50,
+    marginLeft: 10,
   },
   trackButton: {
-    backgroundColor: '#FFC107',
+    backgroundColor: '#FFD54F', // Amarillo claro
     paddingVertical: 15,
     width: '90%',
     borderRadius: 10,
     alignItems: 'center',
   },
   trackButtonText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#000000', // Texto negro
   },
 });
 
