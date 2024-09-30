@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "spoter",
+=======
+  "name": "spotter2",
+>>>>>>> 2e4868ce7457dc0e4d43ccce64f2cc6c75bdc2b2
   "version": "1.0.0",
   "main": "expo/AppEntry.js",
   "scripts": {
@@ -9,6 +13,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@expo/metro-runtime": "~3.2.3",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",
@@ -39,6 +44,30 @@
     "@types/react": "~18.2.45",
     "@types/react-native": "^0.73.0",
     "typescript": "^5.1.3"
+=======
+    "@react-native-async-storage/async-storage": "^1.23.1",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/stack": "^6.4.1",
+    "expo": "~51.0.28",
+    "expo-location": "~17.0.1",
+    "expo-status-bar": "~1.12.1",
+    "firebase": "^10.13.2",
+    "react": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-animatable": "^1.4.0",
+    "react-native-reanimated": "~3.10.1",
+    "react-native-safe-area-context": "^4.10.5",
+    "react-native-screens": "^3.31.1",
+    "react-native-webview": "^13.8.6",
+    "spotter2": "file:"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "@types/react-native": "^0.73.0",
+    "@types/react-navigation": "^3.4.0",
+    "typescript": "~5.3.3"
+>>>>>>> 2e4868ce7457dc0e4d43ccce64f2cc6c75bdc2b2
   },
   "private": true
 }
